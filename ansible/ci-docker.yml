@@ -1,0 +1,31 @@
+# Playbook to install Docker on Ubuntu hosts on CI
+
+- hosts: ci-docker
+  tasks:
+
+    - name: Insist on CI DNS nameserver
+      shell: echo nameserver 172.21.8.87 | resolvconf -a docker0
+
+    - name: Add docker apt keys
+      apt_key:
+        keyserver: hkp://p80.pool.sks-keyservers.net:80
+        id: 58118E89F3A912897C070ADBF76221572C52609D
+
+    - name: Add docker apt repository
+      apt_repository:
+        repo: deb https://apt.dockerproject.org/repo ubuntu-xenial main
+        update_cache: yes
+
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist
+
+    - name: Install Docker Engine
+      apt:
+        name: docker-engine
+
+    - name: Add ci to docker group
+      user:
+        name: ci
+        groups: docker
+        append: yes
