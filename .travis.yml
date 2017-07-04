@@ -10,7 +10,7 @@ before_install:
 
 script:
   - |
-    docker run -v $PWD:/root/src --name mmg-dev mmgtools/mmg-dev bash -c \
+    docker run -v $PWD:/home/travis/src --name mmg-dev mmgtools/mmg-dev bash -c \
       "mkdir -p $HOME/src/build && \
        cd $HOME/src/build && \
        cmake -D CMAKE_BUILD_TYPE=Debug -D BUILD_TESTING=ON .. && \
