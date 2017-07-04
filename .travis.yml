@@ -6,10 +6,10 @@ services:
   - docker
 
 before_install:
-  - docker build -t MmgTools/mmg-dev .
+  - docker build -t mmgtools/mmg-dev .
 
 script:
-  - docker run -d -v $PWD:/src --name mmg-dev MmgTools/mmg-dev
+  - docker run -d -v $PWD:/src --name mmg-dev mmgtools/mmg-dev
   - docker exec mmg-dev mkdir -p build local
   - docker exec mmg-dev "cd build && cmake -D CMAKE_BUILD_TYPE=Debug -D BUILD_TESTING=ON .."
   - docker exec mmg-dev "cd build && make"
